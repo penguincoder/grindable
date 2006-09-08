@@ -1,0 +1,11 @@
+<% @fund_counter ||= 0 -%>
+<% if @fund_counter % 2 == 0 -%>
+<tr id="line_<%= barista.id -%>" class="even">
+<% else -%>
+<tr id="line_<%= barista.id -%>" class="odd">
+<% end -%>
+  <td><%= barista.name -%></td>
+  <td align="center"><%= barista.fund.name rescue 'None' -%></td>
+  <td align="center"><%= display_date barista.created_on -%></td>
+</tr>
+<% @fund_counter += 1 -%>

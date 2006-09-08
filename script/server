@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+argv = ARGV.dup
+
+mroot = "#{File.dirname(__FILE__) + '/..'}"
+if File.exists?("#{mroot}/log/mongrel.pid")
+ pid = ""
+ File.open("#{mroot}/log/mongrel.pid") {|f| pid = f.readline}
+else
+ pid = false
+end
+
+if (pid != false) && (ARGV[0] == 'stop')
+ command = "echo 'Mongrel stopping...';kill " + pid + ";echo 'Mongrel stopped.'"
+ argv = []
+elsif (pid != false)
+ command = "echo '\nMongrel is running with PID " + pid + "'\necho 'Use \"script/server stop\" to stop Mongrel\n'"
+else
+ command = "mongrel_rails start -c #{mroot} "
+end
+
+exec command + argv.join(' ')

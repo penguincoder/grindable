@@ -1,0 +1,35 @@
+<% @content_title = 'Fund Summary' -%>
+
+<%= render :partial => "shared/menu" %>
+
+<div class="formRequest">
+  <table cellspacing="0" class="collectionList" width="100%">
+  <tr>
+    <th width="10%">Use</th>
+    <th width="10%">Delete</th>
+    <th width="40%">Name</th>
+    <th width="15%">Balance</th>
+    <th width="15%">Contribution</th>
+    <th width="10%">Size</th>
+  </tr>
+  <tr><td colspan="6"><hr noshade /></td></tr>
+  <% @funds.each do |@fund| -%>
+  <%= render :partial => 'fund_line' %>
+  <% end -%>
+  <tr><td colspan="6"><hr noshade /></td></tr>
+  </table>
+</div>
+
+<script>dojo.require('dojo.widget.Dialog');</script>
+<div id="fundDialog" class="dialogBox" style="display:none">
+<%= form_tag( { :action => 'add' }, { :id => 'add_fund_form' }) %>
+<table>
+<tr><th colspan="2"><h2>New Fund Details</h2></th></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>  
+<tr><td align="right">Name</td><td><%= text_field_tag 'name', nil, :class => 'inputBox', :size => 16, :maxlength => 64 -%></td></tr>
+<tr><td align="right">Contribution<br /><small><strong>XXX.XX</strong></small></td><td><%= text_field_tag 'contribution', nil, :class => 'inputBox', :size => 10, :maxlength => 12 -%></td></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>
+<tr><td colspan="2"><%= submit_tag 'Add', :class => 'inputBox' -%> | <%= link_to_function 'Cancel', "dojo.widget.byId('fundDialog').hide();dojo.byId('add_fund_form').reset()" -%></td></tr>
+<%= end_form_tag %>
+</div>
+<% @dojo_map ||= {} ; @dojo_map['fundDialog'] = ['dialog', '{bgColor: "black", bgOpacity: "0.5"}'] %>

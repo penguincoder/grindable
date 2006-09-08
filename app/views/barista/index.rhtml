@@ -1,0 +1,37 @@
+<% @content_title = 'Barista Summary' -%>
+
+<%= render :partial => 'shared/menu' %>
+
+<div class="formRequest">
+<table cellspacing="0" class="collectionList" width="100%">
+<tr>
+  <th><strong>Name</strong></th>
+  <th width="15%"><strong>Fund</strong></th>
+  <th width="15%"><strong>Date Joined</strong></th>
+</tr>
+<tr><td colspan="3"><hr noshade /></td></tr>
+<%= render :partial => "barista", :collection => @baristas %>
+<tr><td colspan="3"><hr noshade /></td></tr>
+</table>
+</div>
+
+<div style="margin: 10px 0px 10px 0px" align="center"><%= pagination_links @pages %></div>
+
+<script>dojo.require('dojo.widget.Dialog');</script>
+<div id="baristaDialog" class="dialogBox" style="display:none">
+<%= form_tag( { :action => 'add' }, { :id => 'barista_form' }) %>
+<table>
+<tr><th colspan="2"><h2>Add A Barista</h2></th></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>  
+<tr><td align="right">Name</td><td><%= text_field 'barista', 'name', :class => 'inputBox', :size => 16, :maxsize => 64 -%></td></tr>
+<tr><td align="right">Fund</td><td><%= select('barista', 'fund_id', Fund.for_select, { :selected => (@fund.id.to_s rescue '') }, { :class => 'inputBox' }) -%></td></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>
+<tr><td colspan="2"><%= submit_tag 'Create', :class => 'inputBox' -%> | <%= link_to_function 'Cancel', "dojo.widget.byId('baristaDialog').hide();dojo.byId('barista_form').reset()" -%></td></tr>
+</table>
+<%= end_form_tag %>
+</div>
+
+<%
+  @dojo_map ||= {}
+  @dojo_map['baristaDialog'] = ['dialog', '{bgColor: "black", bgOpacity: "0.5"}']
+%>

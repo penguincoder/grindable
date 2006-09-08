@@ -1,0 +1,122 @@
+#Container {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#Content {
+  margin: 0;
+  padding: 5px;
+  text-align: left;
+  border-top: none;
+  float: left;
+}
+
+#Container, #Content {
+  width: 750px;
+}
+
+body, p, ol, ul, td {
+  font-family: georgia, verdana, arial, helvetica, sans-serif;
+  line-height: 18px;
+}
+
+h1, h2, h3 {  color: #966956; }
+h1 { font-size: 28px }
+h2 { font-size: 19px }
+h3 { font-size: 16px }
+
+.inputBox {
+  font-family: georgia, verdana, arial, helvetica, sans-serif;
+  border: 1px solid #966956;
+  padding: 2px;
+}
+
+#info, #errorExplanation {
+  font-style: italic;
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
+}
+
+#errorExplanation {
+  border: 1px solid #d20000;
+  background-color: #d28f8f;
+  color: #8b0000;
+}
+
+#info {
+  border: 1px solid #966956;
+  background-color: #fffecb;
+  color: #006400;
+}
+
+.formRequest {
+  border: 1px solid #555555;
+  background-color: #eeeeee;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#milkBox, #fundBox, #contributeBox {
+  border: 1px solid black;
+  padding: 0px 5px 0px 5px;
+  margin: 10px 0px 10px 0px;
+}
+
+#milkBox {
+  background-color: #ffffff;
+  background-image: url(/images/milk-print.jpg);
+  background-repeat: repeat;
+}
+
+#fundBox {
+  background-color: #99FF99;
+  background-image: url(/images/balance.jpg);
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+.even {
+  background-color: #bcffcd;
+}
+
+.odd {
+  background-color: #46ff76;
+}
+
+.collectionList {
+  padding: 2px;
+}
+
+.collectionList th {
+  text-align: center;
+}
+
+.collectionList a img {
+  text-decoration: none;
+  border: none;
+}
+
+.dojoDialog {
+  background: #F3EBD8;
+  border: 1px solid #999;
+  -moz-border-radius: 5px;
+  padding: 4px;
+	max-width: 700px;
+  height: auto;
+	max-height: 400px;
+	overflow: auto;
+}
+
+.dialog_header {
+  margin-bottom:10px;
+  background:#787d86;
+  padding:2px 5px 2px 5px;
+  text-align:right;
+  -moz-border-radius : 5px;
+}
+
+.dialog_header a {
+  color:white;
+}

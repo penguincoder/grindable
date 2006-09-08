@@ -1,0 +1,102 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>
+    Grindable :: The coffee funding
+  </title>
+  
+  <script type="text/javascript">
+    djConfig = { isDebug: false };
+  </script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= stylesheet_link_tag "grindable", :media => :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'dojo/dojo.js' %>
+  
+  <script type="text/javascript">
+    function addLoadEvent(func) {
+      var oldonload = window.onload;
+      if (typeof window.onload != 'function') {
+        window.onload = func;
+      }
+      else {
+        window.onload = function() {
+          oldonload();
+          func();
+        }
+      }
+    }
+  
+    // attach an event properly
+    
+    function attachEvent(element, type, event)	{
+      if(element.attachEvent)	{
+        element.attachEvent('on' + type, event);
+      }
+      else	{
+       element.addEventListener(type, event, false);
+      }
+    }
+  </script>
+
+<% if @dojo_map and @dojo_map.length>0 %>
+  <script type="text/javascript">
+    //var widget_ids = {};
+    addLoadEvent( function() {
+      <% @dojo_map.each do |k,v| %>
+      var emt_<%= k %> = document.getElementById('<%= k %>');
+      if (!emt_<%= k %>) {
+        alert("MISSING ELEMENT FOR DOJO: <%= k %>");
+      } else {
+        var e = null;
+        try {
+          var widget_<%= k %> = dojo.widget.createWidget('<%= v[0] %>', <%= v[1] %>, emt_<%= k %>);
+        } catch (ex) {
+          e = ex;
+        }
+        if (e || !widget_<%= k %>) {
+          alert("Unable to create widget: <%= k %>: <%= v[0] %>: " + e);
+        }
+        else {
+          widget_<%= k %>.widgetId = '<%= k %>';
+          dojo.widget.manager.add(widget_<%= k %>);
+        }
+      }
+  
+      <% end %>
+    });
+  </script>
+<% end %>
+
+  <script type="text/javascript">
+  <%= @content_for_script %>
+  </script>
+</head>
+
+<body>
+
+<div id="Container">
+<div id="Content">
+
+<% unless @content_title.nil? -%>
+  <h1><%= @content_title %></h1>
+<% end -%>
+
+<% if @flash[:error] -%>
+  <div id="errorExplanation"><%= escape_preserving_linefeeds_and_html @flash[:error] %></div>
+<% end -%>
+
+<% if @flash[:info] -%>
+  <div id="info"><%= escape_preserving_linefeeds_and_html @flash[:info] %></div>
+<% end %>
+
+<%= @content_for_layout %>
+
+</div> <!-- Content -->
+</div> <!-- Container -->
+
+</body>
+</html>

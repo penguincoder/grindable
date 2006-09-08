@@ -1,0 +1,8 @@
+<% @content_title = 'Identification required' -%>
+
+<div class="formRequest">
+  <%= form_tag :action => :identify %>
+  <p>Name: <%= text_field_tag "name", nil, :size => 32, :maxlength => 64, :class => "inputBox" %></p>
+  <p><%= submit_tag "Login", :class => "inputBox" %></p>
+  <%= end_form_tag %>
+</div>

@@ -1,0 +1,91 @@
+<% @content_title = 'Grindable Home' -%>
+
+<%= render :partial => 'shared/menu' %>
+
+<div id="fundBox">
+  <h2>Fund details</h2>
+  <% if @fund.nil? -%>
+    <p><em><strong>You have no associated fund!</strong></em></p>
+    <p>Visit the <%= link_to 'Fund Controller', :controller => 'fund' -%> to configure funds and change your associated fund.</p>
+  <% else -%>
+    <ul>
+      <li>Fund name: <strong><%= h(@fund.name) -%></strong></li>
+      <li>Total fund balance is: <%= display_amount @fund.balance -%></li>
+      <% unless @fund.contribution == 0.0 -%>
+      <li>Monthly contribution: <%= display_amount @fund.contribution -%></li>
+      <% end -%>
+    </ul>
+    <% unless @fund.contribution == 0.0 -%>
+      <% if session[:barista].paid_this_month? -%>
+        <p>You have paid this month's contribution.</p>
+      <% else -%>
+        <em><p>You have not paid this month</p></em>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+</div>
+
+<% unless @fund.nil? or @fund.contribution == 0.0 -%>
+<div id="milkBox">
+<h2>Milk Purchases</h2>
+
+<%= form_tag({ :action => 'milk_purchased' }, { :id => 'milk_form' }) -%>
+<%= end_form_tag -%>
+<% unless session[:barista].milk_last_bought_at.nil? -%>
+  <p>You last bought milk <strong><%= time_ago_in_words session[:barista].milk_last_bought_at -%></strong> ago.</p>
+<% else -%>
+  <em><p>You have never bought milk!</p></em>
+<% end -%>
+
+<% unless @next_milk_purchaser.id == session[:barista].id -%>
+  <p>The next person to buy milk will be: <strong><%= h(@next_milk_purchaser.name) -%></strong></p>
+<% else -%>
+  <em><p>You will have to buy milk next.</p></em>
+<% end -%>
+</div>
+<% end -%>
+
+<% unless @fund.nil? -%>
+<script>dojo.require('dojo.widget.Dialog');</script>
+<div id="contributionDialog" class="dialogBox" style="display:none">
+<%= form_tag( { :action => 'make_contribution' }, { :id => 'contribution_form' }) %>
+<table>
+<tr><th colspan="2"><h2>Make A Contribution</h2></th></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>  
+<tr><td align="right">Barista</td><td><%= select('contribution', 'barista_id', Barista.for_select(@fund.id), { :selected => session[:barista][:id] }, { :class => 'inputBox' }) -%></td></tr>
+<% if @fund.contribution == 0.0 -%>
+<tr><td align="right">Amount</td><td><%= text_field_tag 'contribution', nil, :class => 'inputBox', :size => 10, :maxsize => 12 -%></td></tr>
+<% else -%>
+<%
+  quantity_select = [ [ 'This month', 1 ] ]
+  (2..6).each do |i|
+    quantity_select << [ "Next #{i} months", i ]
+  end
+%>
+<tr><td align="right">Quantity</td><td><%= select 'contribution', 'quantity', quantity_select, {}, { :class => 'inputBox' } -%></td></tr>
+<% end -%>
+<tr><td colspan="2"><hr noshade /></td></tr>
+<tr><td colspan="2"><%= submit_tag 'Go', :class => 'inputBox' -%> | <%= link_to_function 'Cancel', "dojo.widget.byId('contributionDialog').hide();dojo.byId('contribution_form').reset()" -%></td></tr>
+</table>
+<%= end_form_tag %>
+</div>
+
+<div id="purchaseDialog" class="dialogBox" style="display:none">
+<%= form_tag( { :action => 'make_purchase' }, { :id => 'purchase_form' }) %>
+<table>
+<tr><th colspan="2"><h2>Make A Purchase</h2></th></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>  
+<tr><td align="right">Amount:<br /><small>(<em><strong>XXX.XX</strong></em>)</small></td><td><%= text_field_tag 'amount', nil, :size => 10, :maxlength => 12, :class => 'inputBox' -%></td></tr>
+<tr><td align="right">Comment:</td><td><%= text_field_tag 'comment', nil, :size => 32, :maxlength => 64, :class => 'inputBox' -%></td></tr>
+<tr><td colspan="2"><hr noshade /></td></tr>
+<tr><td colspan="2"><%= submit_tag 'Buy', :class => 'inputBox' -%> | <%= link_to_function 'Cancel', "dojo.widget.byId('purchaseDialog').hide();dojo.byId('purchase_form').reset()" -%></td></tr>
+</table>
+<%= end_form_tag %>
+</div>
+
+<%
+  @dojo_map ||= {}
+  @dojo_map['contributionDialog'] = ['dialog', '{bgColor: "black", bgOpacity: "0.5"}']
+  @dojo_map['purchaseDialog'] = ['dialog', '{bgColor: "black", bgOpacity: "0.5"}']
+%>
+<% end -%>

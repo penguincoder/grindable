@@ -1,0 +1,63 @@
+
+/* CSS for TreeDocIconExtension */
+
+
+/* long vertical line under docIcon, connecting w/ children */
+.TreeChildrenYes.TreeExpandOpen .TreeContent {
+    background-image : url('../templates/images/TreeV3/i_long.gif');
+    background-repeat : no-repeat;
+    background-position: 0px 9px;
+}
+
+/* close has higher priority */
+.TreeChildrenYes.TreeExpandClosed .TreeContent {
+    background-image : url();
+}
+
+/* higher priotity: same length and appear after background-definition */
+.TreeChildrenNo.TreeExpandLeaf .TreeContent {
+    background-image : url();
+}
+
+.TreeChildrenNo.TreeExpandClosed .TreeContent {
+    background-image : url();
+}
+
+.TreeChildrenNo.TreeExpandOpen .TreeContent {
+    background-image : url();
+}
+
+
+/* highest priority */
+.TreeIconDocument {
+    background-image: url('../templates/images/TreeV3/document.gif');
+}
+
+.TreeExpandOpen .TreeIconFolder {
+    background-image: url('../templates/images/TreeV3/open.gif');
+}
+
+.TreeExpandClosed .TreeIconFolder {
+    background-image: url('../templates/images/TreeV3/closed.gif');
+}
+
+/* generic class for docIcon */
+.TreeIcon {
+    width: 18px;
+    height: 18px;
+    float: left;
+    display: inline;
+    background-repeat : no-repeat;
+}
+
+/* add padding to make some space in content for docIcon */
+.TreeContent {
+    padding-left: 18px;
+}
+
+/* IE workaround */
+.TreeContentIE {
+    padding-left: 0px;
+}
+
+

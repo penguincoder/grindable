@@ -1,0 +1,35 @@
+development:
+  development_postgres
+test:
+  test_postgres
+production:
+  production_postgres
+
+development_postgres:
+  adapter: postgresql
+  socket: /tmp/s.PGSQL.5432
+  database: grindable_development
+  username: postgres
+  password:
+test_postgres:
+  adapter: postgresql
+  socket: /tmp/s.PGSQL.5432
+  database: grindable_test
+  username: postgres
+  password:
+production_postgres:
+  adapter: postgresql
+  socket: /tmp/s.PGSQL.5432
+  database: grindable_production
+  username: postgres
+  password:
+
+development_sqlite3:
+  adapter: sqlite3
+  database: db/development.sqlite3
+test_sqlite3:
+  adapter: sqlite3
+  database: db/test.sqlite3
+production_sqlite3:
+  adapter: sqlite3
+  database: db/production.sqlite3

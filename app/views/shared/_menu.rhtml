@@ -1,0 +1,19 @@
+<div class="menu" id="menuBar">
+  <p>
+    <%= link_to_unless_current 'Cafe', :controller => 'cafe' -%> |
+    <%= link_to_unless_current 'Activity Log', :controller => 'activity' -%> |
+    <%= link_to_unless_current 'Fund Manager', :controller => 'fund' -%> |
+    <%= link_to_unless_current 'Barista Manager', :controller => 'barista' -%> |
+    <%= link_to "Logout", :controller => 'barista', :action => 'anonymize' -%>
+  </p>
+</div>
+
+<div id="relatedLinks">
+<p>
+<%= @related_links.collect { |*x| link_to *x[0] }.join(' | ') -%>
+<%= " | " unless @related_links.empty? or @related_functions.empty? -%>
+<%= @related_functions.collect { |what, where| link_to_function what, where }.join(' | ') %>
+<%= " | " unless @related_functions.empty? or @related_remote.empty? -%>
+<%= @related_remote.collect { |*x| link_to_remote *x[0] }.join(' | ') -%>
+</p>
+</div>

@@ -1,0 +1,26 @@
+<% @content_title = "Fund Activity :: #{@fund.name rescue 'None!'}" -%>
+
+<%= render :partial => 'shared/menu' %>
+
+<% unless @fund.nil? -%>
+<div class="formRequest">
+<table cellspacing="0" class="collectionList" width="100%">
+<tr>
+  <th width="35%"><strong>Comment</strong></th>
+  <th width="30%"><strong>Barista</strong></th>
+  <th width="15%"><strong>Date</strong></th>
+  <th width="10%"><strong>-</strong></th>
+  <th width="10%"><strong>+</strong></th>
+</tr>
+<tr><td colspan="5"><hr noshade /></td></tr>
+<%= render :partial => "purchase", :collection => @purchases %>
+<tr><td colspan="5"><hr noshade /></td></tr>
+</table>
+</div>
+
+<div style="margin: 10px 0px 10px 0px" align="center"><%= pagination_links @purchase_pages %></div>
+<% else -%>
+<div class="formRequest">
+<p>Visit the <%= link_to 'Fund Controller', :controller => 'fund' -%> to configure funds and change your associated fund.</p>
+</div>
+<% end -%>

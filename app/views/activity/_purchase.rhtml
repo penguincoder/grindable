@@ -1,0 +1,13 @@
+<% @fund_counter ||= 0 -%>
+<% if @fund_counter % 2 == 0 -%>
+<tr id="line_<%= purchase.id -%>" class="even">
+<% else -%>
+<tr id="line_<%= purchase.id -%>" class="odd">
+<% end -%>
+  <td><%= purchase.comment -%></td>
+  <td align="center"><%= purchase.name -%></td>
+  <td><%= display_date purchase.post_date -%></td>
+  <td align="right"><%= display_amount purchase.debit_amount -%></td>
+  <td align="right"><%= display_amount purchase.credit_amount -%></td>
+</tr>
+<% @fund_counter += 1 -%>

@@ -1,0 +1,14 @@
+<% @fund_counter ||= 0 -%>
+<% if @fund_counter % 2 == 0 -%>
+<tr id="line_<%= @fund.id -%>" class="even">
+<% else -%>
+<tr id="line_<%= @fund.id -%>" class="odd">
+<% end -%>
+  <td align="center"><%= link_to image_tag('go-home-16.png', :alt => 'Use', :title => 'Use this fund'), { :action => 'use', :id => @fund.id }, :post => true -%></td>
+  <td align="center"><%= link_to image_tag('edit-delete-16.png', :alt => 'Delete', :title => 'Delete Fund'), { :action => 'delete', :id => @fund.id }, :post => true -%></td>
+  <td><strong><%= @fund.name -%></strong></td>
+  <td align="right"><%= display_amount @fund.balance -%></td>
+  <td align="right"><%= in_place_editor_field :fund, :contribution -%></td>
+  <td align="right"><%= @fund.baristas.size -%></td>
+</tr>
+<% @fund_counter += 1 -%>
